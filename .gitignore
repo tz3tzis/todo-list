@@ -18,3 +18,7 @@ out/
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+
+# Gradle build output
+/build/
+.gradle/
