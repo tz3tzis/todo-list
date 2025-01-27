@@ -2,6 +2,7 @@ package ch.cern.todo.service;
 
 import ch.cern.todo.entities.Task;
 import ch.cern.todo.entities.User;
+import ch.cern.todo.exception.ResourceNotFoundException;
 import ch.cern.todo.repos.TaskRepository;
 import ch.cern.todo.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
     public void createTask(Task task) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByName(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User: " + username + "not found"));
         task.setUser(user);
         taskRepository.save(task);
     }
@@ -49,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task getTask(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id" + id + " not found"));
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isAdmin = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
@@ -67,7 +68,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task updateTask(Task task) {
         Task existingTask = taskRepository.findById(task.getId())
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id: " + task.getId() + "not found"));
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isAdmin = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
@@ -84,7 +85,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteTask(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task wit id:" + id + " not found"));
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isAdmin = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
