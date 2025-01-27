@@ -56,13 +56,15 @@ class TaskControllerTest {
         Task task2 = Task.builder().id(2L).name("Task2")
                 .category(TaskCategory.builder().name("Category2").build())
                 .build();
-        tasks.add(task1); tasks.add(task2);
+        tasks.add(task1);
+        tasks.add(task2);
 
         // Create a list of taskDTOs
         taskDTOs = new ArrayList<>();
-        TaskDTO taskDTO1 = TaskDTO.builder() .name("Task1").category("Category1").build();
-        TaskDTO taskDTO2 = TaskDTO.builder().name("Task2").category("Category2").build();
-        taskDTOs.add(taskDTO1); taskDTOs.add(taskDTO2);
+        TaskDTO taskDTO1 = TaskDTO.builder().name("Task1").deadline("2025-01-08").category("Category1").username("user1").build();
+        TaskDTO taskDTO2 = TaskDTO.builder().name("Task2").deadline("2025-02-08").category("Category2").username("user2").build();
+        taskDTOs.add(taskDTO1);
+        taskDTOs.add(taskDTO2);
     }
 
 
@@ -111,8 +113,8 @@ class TaskControllerTest {
         var body = new ObjectMapper().writeValueAsString(taskDto);
 
         mockMvc.perform(post("/api/v1/tasks/create", taskDto)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isCreated());
 
         taskService.createTask(task);
@@ -135,8 +137,8 @@ class TaskControllerTest {
         var body = new ObjectMapper().writeValueAsString(taskDTO);
 
         mockMvc.perform(put("/api/v1/tasks", taskDTO)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isOk());
 
         verify(taskService, times(1)).updateTask(task);
@@ -154,4 +156,57 @@ class TaskControllerTest {
         verify(taskService, times(1)).deleteTask(taskId);
     }
 
+
+    @Test
+    void givenEmptyName_shouldReturnBadRequest() throws Exception {
+        TaskDTO taskDTO = TaskDTO.builder()
+                .name("")
+                .deadline("2025-12-12")
+                .category("Category1")
+                .username("userTest1")
+                .build();
+
+        var body = new ObjectMapper().writeValueAsString(taskDTO);
+
+        mockMvc.perform(post("/api/v1/tasks/create", taskDTO)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    void givenEmptyCategory_shouldReturnBadRequest() throws Exception {
+        TaskDTO taskDTO = TaskDTO.builder()
+                .name("taskk1")
+                .deadline("2021-12-12")
+                .category("")
+                .username("userTest1")
+                .build();
+
+        var body = new ObjectMapper().writeValueAsString(taskDTO);
+
+        mockMvc.perform(post("/api/v1/tasks/create", taskDTO)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void givenAllParams_shouldSearchTasks_returnOK() throws Exception {
+        this.mockMvc.perform(get("/api/v1/tasks/search?name=Task1&description=Task1&deadline=2021-12-12&category=Category1&username=userTest1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void givenEmptyName_shouldSearchTasks_returnOK() throws Exception {
+        this.mockMvc.perform(get("/api/v1/tasks/search?name=&description=Task1&deadline=2021-12-12&category=Category1&username=userTest1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void givenOneParam_shouldSearchTasks_returnOK() throws Exception {
+        this.mockMvc.perform(get("/api/v1/tasks/search?name=Task1"))
+                .andExpect(status().isOk());
+    }
 }

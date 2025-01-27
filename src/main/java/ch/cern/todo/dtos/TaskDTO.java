@@ -1,5 +1,6 @@
 package ch.cern.todo.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,7 +20,8 @@ public class TaskDTO {
     String description;
 
     @NotNull(message = "Deadline is mandatory")
-    LocalDate deadline;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String deadline;
 
     @NotBlank(message = "Category is mandatory")
     String category;

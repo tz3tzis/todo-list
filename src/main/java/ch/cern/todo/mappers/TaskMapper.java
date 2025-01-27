@@ -10,6 +10,8 @@ import ch.cern.todo.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class TaskMapper {
@@ -22,7 +24,7 @@ public class TaskMapper {
                 .name(task.getName())
                 .description(task.getDescription())
                 .category(task.getCategory().getName())
-                .deadline(task.getDeadline())
+                .deadline(task.getDeadline().toString())
                 .username(task.getUser().getName())
                 .build();
     }
@@ -36,11 +38,13 @@ public class TaskMapper {
         User user = userRepository.findByName(taskDto.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        LocalDate deadline = LocalDate.parse(taskDto.getDeadline());
+
         return Task.builder()
                 .name(taskDto.getName())
                 .description(taskDto.getDescription())
                 .category(taskCategory)
-                .deadline(taskDto.getDeadline())
+                .deadline(deadline)
                 .user(user)
                 .build();
     }
