@@ -67,6 +67,8 @@ public class TaskIntegrationTest {
 
     @AfterEach
     void tearDown() {
+        taskCategoryRepository.deleteAll();
+        userRepository.deleteAll();
         taskRepository.deleteAll();
     }
 
