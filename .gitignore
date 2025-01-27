@@ -1,24 +1,67 @@
-# Ignore IntelliJ IDEA project files
+# IntelliJ IDEA project files
 .idea/
+*.iml
+*.iws
 
-# Ignore database files
+# Ignore H2 database files
 *.mv.db
 *.trace.db
 
-# Ignore Gradle cache
+# Gradle cache
 .gradle/
 
-# Ignore build directories
+# Build directories
 /build/
 out/
 
-# Ignore log files
+# Log files
 *.log
 
-# Ignore OS-specific files
+# OS-specific files
 .DS_Store
 Thumbs.db
 
 # Gradle build output
-/build/
 .gradle/
+build/
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Test reports
+/test-results/
+*.testResults
+/reports/
+
+# Exclude local environment configs
+.env
+.env.*
+
+# Ignore Maven target directory (if applicable)
+target/
+
+# Ignore node_modules (if using Node.js for frontend)
+node_modules/
+
+# Exclude IDE-specific settings (VSCode, Eclipse, etc.)
+.vscode/
+.project
+.classpath
+.settings/
+
+# Ignore generated JAR/WAR/EAR files
+*.jar
+*.war
+*.ear
+
+# Ignore coverage reports
+/coverage/
+*.lcov
+*.coverage
+*.cov
+
+# Ignore temporary deployment files
+*.tmp
+*.bak
