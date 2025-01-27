@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @Data
@@ -39,5 +40,5 @@ public class User implements Principal {
             joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private List<Role> roles;
+    private Set<Role> roles;
 }

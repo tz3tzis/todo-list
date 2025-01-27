@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -50,4 +51,21 @@ public class TaskController {
     void deleteTask(@PathVariable long id) {
         taskService.deleteTask(id);
     }
+
+
+    //search by parameters
+    @GetMapping("/search")
+    List<TaskDTO> searchTasks(@RequestParam(required = false) String name,
+                              @RequestParam(required = false) String description,
+                              @RequestParam(required = false) LocalDate deadline,
+                              @RequestParam(required = false) String category,
+                              String username) {
+        return taskService.searchTasks(name, description, deadline, category, username)
+                .stream()
+                .map(map::toDto)
+                .collect(toList());
+    }
+
 }
+
+

@@ -3,14 +3,14 @@ package ch.cern.todo.dtos;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
 public class TaskDTO {
     String name;
     String description;
-    LocalDateTime deadline;
+    LocalDate deadline;
     String category;
     String username;
 }

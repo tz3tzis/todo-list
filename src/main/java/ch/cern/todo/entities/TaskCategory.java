@@ -30,4 +30,5 @@ public class TaskCategory {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
+
 }

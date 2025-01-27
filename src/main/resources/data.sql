@@ -1,6 +1,6 @@
 insert into app_user (name, password)
 values ('john', 'password1'),
-       ('doe', 'password2');
+       ('doe', '$2a$10$7Q7r11iwD0UVLHCfQFJK5OQjWlBNXtpTavKzQMG0jL6DRbfrUnQFe');
 
 
 insert into user_roles (user_id, role)
