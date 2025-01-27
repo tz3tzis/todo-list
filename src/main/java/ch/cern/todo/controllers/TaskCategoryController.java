@@ -23,7 +23,7 @@ public class TaskCategoryController {
 
     @GetMapping
     @ResponseStatus(OK)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     List<TaskCategoryDTO> getAllTaskCategories() {
         return taskCategoryService.getAllTaskCategories()
                 .stream()
@@ -51,6 +51,7 @@ public class TaskCategoryController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
     void deleteTaskCategory(@PathVariable long id) {
         taskCategoryService.deleteTaskCategory(id);
     }

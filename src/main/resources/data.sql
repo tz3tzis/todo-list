@@ -1,6 +1,6 @@
 insert into app_user (name, password)
-values ('john', 'password1'),
-       ('doe', '$2a$10$7Q7r11iwD0UVLHCfQFJK5OQjWlBNXtpTavKzQMG0jL6DRbfrUnQFe');
+values ('john', '$2b$12$mOsP19JXVmRKN65gqHzE9exu94yQCovPYD6IMNtpvrcLaBivwgP2y'), --password: password1
+       ('doe', '$2b$12$SW3rVGt9Kvu3FXlzbB9fAetEvIg4zSOf7rRMnV8YGUSPRvBo7Co2i'); --password: password
 
 
 insert into user_roles (user_id, role)
