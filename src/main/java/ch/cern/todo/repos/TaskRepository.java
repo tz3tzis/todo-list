@@ -15,13 +15,22 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTasksByUserName(String name);
 
     @Query(nativeQuery = true,
-                    value = """
-                       SELECT t FROM Task t WHERE\s
-                           (:name IS NULL OR t.name LIKE %:name%) AND\s
-                           (:description IS NULL OR t.description LIKE %:description%) AND\s
-                           (:deadline IS NULL OR t.deadline = :deadline) AND\s
-                           (:category IS NULL OR t.category.name = :category) AND\s
-                           (:username IS NULL OR t.user.name = :username)
-                   \s""")
+            value = """
+                        SELECT 
+                            t.id,
+                            t.name,
+                            t.description ,
+                            t.deadline,
+                            t.category_id,
+                            t.app_user_id
+                        FROM task t
+                        LEFT JOIN task_category c ON t.category_id = c.id
+                        LEFT JOIN app_user u ON t.app_user_id = u.id
+                        WHERE (:name IS NULL OR t.name = :name) 
+                          AND (:description IS NULL OR t.description = :description)
+                          AND (:deadline IS NULL OR CAST(t.deadline AS DATE) = :deadline)
+                          AND (:category IS NULL OR c.name = :category) 
+                          AND (:username IS NULL OR u.name = :username)
+                    \s""")
     List<Task> searchTasks(String name, String description, LocalDate deadline, String category, String username);
 }

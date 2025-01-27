@@ -98,6 +98,7 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(id);
     }
 
+    @Override
     public List<Task> searchTasks(String name, String description, LocalDate deadline, String category, String username) {
         return taskRepository.searchTasks(name, description, deadline, category, username);
     }

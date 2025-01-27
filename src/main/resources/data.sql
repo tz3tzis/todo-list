@@ -13,9 +13,9 @@ values ('Personal', 'Tasks related to personal life'),
        ('Study', 'Tasks related to study life');
 
 insert into task (name, description, deadline, category_id, app_user_id)
-values ('Buy groceries', 'Buy groceries for the week', '2022-02-06 14:44:00',
+values ('Buy groceries', 'Buy groceries for the week', '2025-01-01 14:44:00',
         (select id from task_category where name = 'Personal'), (select id from app_user where name = 'john')),
-       ('Finish project', 'Finish project before deadline', '2022-02-06 14:44:00',
+       ('Finish project', 'Finish project before deadline', '2025-02-01 14:44:00',
         (select id from task_category where name = 'Work'), (select id from app_user where name = 'john')),
-       ('Study for exam', 'Study for exam next week', '2022-02-06 14:44:00',
+       ('Study for exam', 'Study for exam next week', '2025-03-01 14:44:00',
         (select id from task_category where name = 'Study'), (select id from app_user where name = 'doe'));

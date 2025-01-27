@@ -22,6 +22,7 @@ public class TaskMapper {
                 .name(task.getName())
                 .description(task.getDescription())
                 .category(task.getCategory().getName())
+                .deadline(task.getDeadline())
                 .username(task.getUser().getName())
                 .build();
     }
@@ -39,6 +40,7 @@ public class TaskMapper {
                 .name(taskDto.getName())
                 .description(taskDto.getDescription())
                 .category(taskCategory)
+                .deadline(taskDto.getDeadline())
                 .user(user)
                 .build();
     }

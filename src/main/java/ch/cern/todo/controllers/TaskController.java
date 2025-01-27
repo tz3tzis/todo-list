@@ -5,6 +5,7 @@ import ch.cern.todo.mappers.TaskMapper;
 import ch.cern.todo.service.TaskServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -55,11 +56,12 @@ public class TaskController {
 
     //search by parameters
     @GetMapping("/search")
+    @PreAuthorize("hasRole('ADMIN')")
     List<TaskDTO> searchTasks(@RequestParam(required = false) String name,
                               @RequestParam(required = false) String description,
                               @RequestParam(required = false) LocalDate deadline,
                               @RequestParam(required = false) String category,
-                              String username) {
+                              @RequestParam(required = false) String username) {
         return taskService.searchTasks(name, description, deadline, category, username)
                 .stream()
                 .map(map::toDto)
