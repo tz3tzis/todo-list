@@ -20,12 +20,9 @@ public class TaskCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 100)
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Size(max = 500)
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
