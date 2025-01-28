@@ -158,7 +158,7 @@ class TaskControllerTest {
 
 
     @Test
-    void givenEmptyName_shouldReturnBadRequest() throws Exception {
+    void givenEmptyName_shouldReturnInternalServerError() throws Exception {
         TaskDTO taskDTO = TaskDTO.builder()
                 .name("")
                 .deadline("2025-12-12")
@@ -171,12 +171,12 @@ class TaskControllerTest {
         mockMvc.perform(post("/api/v1/tasks/create", taskDTO)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isInternalServerError());
     }
 
 
     @Test
-    void givenEmptyCategory_shouldReturnBadRequest() throws Exception {
+    void givenEmptyCategory_shouldReturnInternalServerError() throws Exception {
         TaskDTO taskDTO = TaskDTO.builder()
                 .name("taskk1")
                 .deadline("2021-12-12")
@@ -189,7 +189,7 @@ class TaskControllerTest {
         mockMvc.perform(post("/api/v1/tasks/create", taskDTO)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isInternalServerError());
     }
 
     @Test

@@ -58,7 +58,7 @@ class TaskCategoryServiceImplTest {
                 RuntimeException.class,
                 () -> taskCategoryService.getTaskCategory(1L)
         );
-        assertThat(exception.getMessage()).isEqualTo("Task category not found");
+        assertThat(exception.getMessage()).isEqualTo("Task category with id: 1 not found");
         verify(taskCategoryRepository, times(1)).findById(1L);
     }
 
