@@ -18,27 +18,31 @@ repositories {
 }
 
 dependencies {
+	//Core Dependencies
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-devtools'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
-	implementation 'org.projectlombok:lombok:1.18.34'
 
+	//Spring OpenAPI
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+	// Lombok
+	implementation 'org.projectlombok:lombok:1.18.34'
 	annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
+	// H2 Database
 	runtimeOnly 'com.h2database:h2'
 
+	// Test Dependencies
 	testImplementation 'org.mockito:mockito-inline:5.2.0'
 	testImplementation 'org.mockito:mockito-core:5.11.0'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.hibernate.validator:hibernate-validator'
 	testImplementation 'jakarta.validation:jakarta.validation-api'
 	testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2'
-
 
 }
 
